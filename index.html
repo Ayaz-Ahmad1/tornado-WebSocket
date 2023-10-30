@@ -1,51 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Progress Bar</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>WebSocket Chat by Ayaz Ahmad</title>
 </head>
 <body>
-    <button id="startButton">Start Progress</button>
-    <div id="progressBarContainer"></div>
+    <h1>WebSocket Chat</h1>
+    <div id="chat-box"></div>
+    <input type="text" id="message-input" placeholder="Type a message">
+    <button onclick="sendMessage()">Send</button>
+
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var progressBarContainer = document.getElementById("progressBarContainer");
-    
-            function createProgressBar() {
-                var progressBar = document.createElement("div");
-                progressBar.className = "progress-bar";
-                progressBarContainer.appendChild(progressBar);
-                return progressBar;
-            }
-    
-            document.getElementById("startButton").addEventListener("click", function() {
-                createProgressBar();
-                var progressBar = progressBarContainer.lastChild;
-                var progress = 0;
-    
-                var ws = new WebSocket("ws://" + window.location.host + "/progress_ws");
-                ws.onmessage = function(event) {
-                    progress = parseInt(event.data);
-                    progressBar.style.width = progress + "%";
-                    progressBar.textContent = progress + "%";
-                    if (progress === 100) {
-                        ws.close();
-                    }
-                };
-            });
-        });
-    </script>
-    
-    <style>
-        .progress-bar {
-            width: 0;
-            height: 20px;
-            background-color: #007BFF;
-            margin: 10px 0;
-            text-align: center;
-            color: white;
-            line-height: 20px;
+        var chatBox = document.getElementById("chat-box");
+        var messageInput = document.getElementById("message-input");
+
+        var socket = new WebSocket("ws://localhost:8889/ws");
+
+        socket.onmessage = function(event) {
+            var message = document.createElement("p");
+            message.innerText = event.data;
+            chatBox.appendChild(message);
+        };
+
+        function sendMessage() {
+            var message = messageInput.value;
+            socket.send(message);
+            messageInput.value = "";
         }
-    </style>
+    </script>
 </body>
 </html>
