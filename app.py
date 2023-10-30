@@ -34,7 +34,7 @@ class ChatHandler(tornado.websocket.WebSocketHandler):
 
         for client, client_username in ChatHandler.usernames.items():
             if client is not self:
-                client.write_message(f"{username}: has left the chat.")
+                client.write_message(f"<b>{username}</b> has left the chat.")
 
         try:
             if self in ChatHandler.clients:
