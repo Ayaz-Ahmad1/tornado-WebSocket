@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebSocket Chat</title>
+    <title>WebSocket Chat by Ayaz</title>
 </head>
 <body>
     <h1>WebSocket Chat</h1>
@@ -13,7 +13,7 @@
         var chatBox = document.getElementById("chat-box");
         var messageInput = document.getElementById("message-input");
 
-        var socket = new WebSocket("ws://localhost:8888/ws");
+        var socket = new WebSocket("ws://localhost:8889/ws");
 
         socket.onmessage = function(event) {
             var message = document.createElement("p");

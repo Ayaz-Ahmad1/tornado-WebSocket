@@ -59,6 +59,7 @@ def make_app():
 
 if __name__ == "__main__":
     app = make_app()
-    app.listen(8888)
-    print("Server is running on http://localhost:8888")
+    port = 8889
+    app.listen(port)
+    print(f"Server is running on http://localhost:{port}")
     tornado.ioloop.IOLoop.current().start()
